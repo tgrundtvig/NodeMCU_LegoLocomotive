@@ -20,7 +20,7 @@ void Locomotive::update(unsigned long curTime)
     DeviceUDPClient::update(curTime);
     _trainCtrl.update(curTime);
     _led.update(curTime);
-    if(curTime - _ledStarted > 5000)
+    if(curTime - _ledStarted > 10000)
     {
         _led.stop();
     }
@@ -36,7 +36,7 @@ uint16_t Locomotive::onPacketReceived(uint16_t command, uint16_t arg1, uint16_t 
     switch(command)
     {
         case CMD_IDENTIFY:
-            _led.setBlinksPattern(3, 100, 200, 400);
+            _led.setBlinksPattern(arg1, 100, 200, 400);
             _led.start();
             _ledStarted = _curTime;
             return 0;
